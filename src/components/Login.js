@@ -1,13 +1,30 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Header from './Header'
+import { checkValidData } from '../utils/validate'
 
 const Login = () => {
 
     const [isSignInForm, setIsSignInForm] = useState(true)
+    const [errorMessage, setErrorMessage] = useState(null)
+    const email = useRef(null)
+    const password = useRef(null)
+    const name = useRef(null)
 
 
     const toggleSignInForm = () => {
         setIsSignInForm(!isSignInForm)
+    }
+
+    const handleButtonClick = (e) => {
+        e.preventDefault()
+
+        const errMessage = checkValidData(email.current.value, password.current.value)
+        setErrorMessage(errMessage)
+
+        if (!isSignInForm && !name.current.value) {
+            console.log('Hello')
+            setErrorMessage("Please enter your full name")
+        }
     }
 
 
@@ -33,15 +50,17 @@ const Login = () => {
                 </h1>
 
                 {!isSignInForm &&
-                    <input type="text" placeholder='Full Name' style={{ width: '100%', padding: '10px', margin: '8px', background: 'rgba(0, 0, 0, 0.7)', color: 'white', borderRadius: '8px' }} />
+                    <input ref={name} type="text" placeholder='Full Name' style={{ width: '100%', padding: '10px', margin: '8px', background: 'rgba(0, 0, 0, 0.7)', color: 'white', borderRadius: '8px' }} />
                 }
 
 
-                <input type="email" placeholder='Email Address' style={{ width: '100%', padding: '10px', margin: '8px', background: 'rgba(0, 0, 0, 0.7)', color: 'white', borderRadius: '8px' }} />
+                <input ref={email} type="email" placeholder='Email Address' style={{ width: '100%', padding: '10px', margin: '8px', background: 'rgba(0, 0, 0, 0.7)', color: 'white', borderRadius: '8px' }} />
 
-                <input type="password" placeholder='Password' style={{ width: '100%', padding: '10px', margin: '8px', background: 'rgba(0, 0, 0, 0.7)', color: 'white', borderRadius: '8px' }} />
+                <input ref={password} type="password" placeholder='Password' style={{ width: '100%', padding: '10px', margin: '8px', background: 'rgba(0, 0, 0, 0.7)', color: 'white', borderRadius: '8px' }} />
 
-                <button style={{ width: '50%', padding: '10px', marginTop: '20px', background: 'rgb(235, 57, 66)', borderRadius: '8px', color: 'white' }}>
+                <p style={{ color: 'rgb(235, 57, 66)', marginTop: '5px', fontWeight: 'bold' }}>{errorMessage}</p>
+
+                <button style={{ width: '50%', padding: '10px', marginTop: '20px', background: 'rgb(235, 57, 66)', borderRadius: '8px', color: 'white' }} onClick={handleButtonClick}>
                     {isSignInForm ? 'Sign In' : 'Sign Up'}
                 </button>
                 <p onClick={toggleSignInForm} style={{ alignSelf: 'flex-start', marginTop: '20px', cursor: 'pointer' }}>

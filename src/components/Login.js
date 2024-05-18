@@ -1,9 +1,15 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { checkValidData } from '../utils/validate'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from '../utils/firebase';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
-
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [isSignInForm, setIsSignInForm] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null)
     const email = useRef(null)
@@ -22,8 +28,50 @@ const Login = () => {
         setErrorMessage(errMessage)
 
         if (!isSignInForm && !name.current.value) {
-            console.log('Hello')
             setErrorMessage("Please enter your full name")
+        }
+
+        if (errorMessage) return
+
+        if (isSignInForm) {
+            // sign in logic
+
+            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log(user)
+                    navigate('/browse')
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessage(errorCode + '-' + errorMessage)
+                });
+
+        } else {
+            //sign up logic
+            createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    updateProfile(user, {
+                        displayName: name.current.value
+                    }).then(() => {
+                        // Profile updated!
+                        const { uid, email, displayName } = auth.currentUser;
+                        dispatch(addUser({ uid, email, displayName }))
+                        navigate('/browse')
+
+                    }).catch((error) => {
+                        // An error occurred
+                        navigate('/error')
+                    });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessage(errorCode + '-' + errorMessage)
+                });
         }
     }
 
@@ -32,6 +80,7 @@ const Login = () => {
         <div style={{ position: 'relative' }}>
             <Header />
             <form style={{
+                maxWidth: '250px',
                 position: 'absolute',
                 top: '50%',
                 left: '50%',

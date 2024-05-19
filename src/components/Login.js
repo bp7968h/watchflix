@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { BG_IMAGE } from '../utils/constants';
 
 const Login = () => {
     const dispatch = useDispatch()
@@ -38,7 +39,7 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
-                    console.log(user)
+                    // console.log(user)
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -112,7 +113,7 @@ const Login = () => {
                 </p>
             </form>
             <div style={{
-                backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://assets.nflxext.com/ffe/siteui/vlv3/41c789f0-7df5-4219-94c6-c66fe500590a/e5813029-89df-4dfc-8fd4-b0dd01d0290b/GB-en-20240513-popsignuptwoweeks-perspective_alpha_website_medium.jpg")',
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${BG_IMAGE})`,
                 minHeight: '100vh',
                 maxWidth: '100vw',
             }}>

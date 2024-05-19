@@ -1,0 +1,11 @@
+/* styles.css */
+.scrollable-element::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollable-element {
+    scrollbar-width: none;
+    /* Firefox */
+    overflow: auto;
+    /* Important for enabling scrolling */
+}

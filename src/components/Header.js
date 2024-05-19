@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { onAuthStateChanged } from 'firebase/auth'
 import { addUser, removeUser } from '../utils/userSlice'
+import { AVATAR, LOGO } from '../utils/constants'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -18,9 +19,9 @@ const Header = () => {
     }
 
     useEffect(() => {
-        console.log('registered')
-        onAuthStateChanged(auth, (user) => {
-            console.log('fired')
+        // console.log('registered')
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            // console.log('fired')
             if (user) {
                 //User is signed in
                 const { uid, email, displayName } = user;
@@ -32,15 +33,17 @@ const Header = () => {
                 navigate('/')
             }
         });
+
+        return () => unsubscribe()
     }, [])
 
     return (
-        <div style={{ width: '100%', position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
+        <div style={{ width: '100%', position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))', zIndex: 99 }} >
             <img
                 style={{ marginLeft: 155 }}
                 width='160px'
                 height='78px'
-                src='https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png'
+                src={LOGO}
                 alt="Brand"
             />
             {user && <div style={{
@@ -55,7 +58,7 @@ const Header = () => {
                 onClick={handleSignOut}
             >
                 <img
-                    src="https://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdpkabKqQAxyWzo6QW_ZnPz1IZLqlmNfK-t4L1VIeV1DY00JhLo_LMVFp936keDxj-V5UELAVJrU--iUUY2MaDxQSSO-0qw.png?r=e6e"
+                    src={AVATAR}
                 />
                 <p>Sign Out</p>
             </div>}

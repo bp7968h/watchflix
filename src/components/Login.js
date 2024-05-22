@@ -105,7 +105,9 @@ const Login = () => {
 
                 <p style={{ color: 'rgb(235, 57, 66)', marginTop: '5px', fontWeight: 'bold' }}>{errorMessage}</p>
 
-                <button style={{ width: '50%', padding: '10px', marginTop: '20px', background: 'rgb(235, 57, 66)', borderRadius: '8px', color: 'white' }} onClick={handleButtonClick}>
+                <button style={{
+                    width: '50%', padding: '10px', marginTop: '20px', background: 'rgb(235, 57, 66)', borderRadius: '8px', color: 'white', cursor: 'pointer'
+                }} onClick={handleButtonClick}>
                     {isSignInForm ? 'Sign In' : 'Sign Up'}
                 </button>
                 <p onClick={toggleSignInForm} style={{ alignSelf: 'flex-start', marginTop: '20px', cursor: 'pointer' }}>

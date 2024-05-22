@@ -3,12 +3,14 @@ import Header from './Header'
 import useNowPlayingMovies from '../hooks/useNowPlayingMovies'
 import MainContainer from './MainContainer'
 import SecondaryContainer from './SecondaryContainer'
+import GptSearch from './GptSearch'
 import usePopularMovies from '../hooks/usePopularMovies'
 import useTopRatedMovies from '../hooks/useTopRatedMovies'
 import useUpcomingMovies from '../hooks/useUpcomingMovies'
+import { useSelector } from 'react-redux'
 
 const Browse = () => {
-
+    const showRecommendationView = useSelector(store => store.recommendation.showRecommendationView)
     useNowPlayingMovies()
     usePopularMovies()
     useTopRatedMovies()
@@ -17,8 +19,12 @@ const Browse = () => {
     return (
         <div>
             <Header />
-            <MainContainer />
-            <SecondaryContainer />
+            {showRecommendationView ?
+                <GptSearch /> :
+                <>
+                    <MainContainer />
+                    <SecondaryContainer />
+                </>}
         </div>
     )
 }

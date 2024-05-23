@@ -13,7 +13,7 @@ const VideoBackground = ({ movieId }) => {
         // <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }} >
         <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
             <iframe
-                // style={{ width: '100vw', aspectRatio: 16 / 9 }}
+                title={trailerVideo.name}
                 style={{
                     width: '100vw',
                     height: `calc(100vw * (9 / 16))`,
@@ -24,7 +24,7 @@ const VideoBackground = ({ movieId }) => {
                 }}
                 src={"https://www.youtube.com/embed/" + trailerVideo.key + "?autoplay=1&mute=1&loop=1&playlist=" + trailerVideo.key}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
+                referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
             ></iframe>
         </div >

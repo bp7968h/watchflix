@@ -17,6 +17,7 @@ const usePopularMovies = () => {
 
     useEffect(() => {
         getPopularList()
+        // eslint-disable-next-line
     }, [])
 }
 

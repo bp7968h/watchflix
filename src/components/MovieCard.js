@@ -9,7 +9,7 @@ const MovieCard = ({ posterPath }) => {
                 style={{ borderRadius: '8px' }}
                 width='150px'
                 src={IMG_CDN + posterPath}
-                alt="Photo"
+                alt="Background Poster"
             />
         </div>
     )

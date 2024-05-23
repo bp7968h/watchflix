@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { addTrailerVideo } from "../utils/moviesSlice"
 import { API_OPTIONS } from "../utils/constants"
@@ -18,6 +18,7 @@ const useMovieTrailer = (movieId) => {
 
     useEffect(() => {
         getMovieVideos()
+        // eslint-disable-next-line
     }, [])
 }
 

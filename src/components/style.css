@@ -6,6 +6,6 @@
 .scrollable-element {
     scrollbar-width: none;
     /* Firefox */
-    overflow: auto;
+    /* overflow: auto; */
     /* Important for enabling scrolling */
 }

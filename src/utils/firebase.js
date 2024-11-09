@@ -3,7 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 
-
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKey,
   authDomain: "netflix-clone-bp.firebaseapp.com",
@@ -11,7 +10,7 @@ const firebaseConfig = {
   storageBucket: "netflix-clone-bp.appspot.com",
   messagingSenderId: "783147995787",
   appId: "1:783147995787:web:d2649699846d2af6a7fa8e",
-  measurementId: "G-CZM65NMVJ9"
+  measurementId: "G-CZM65NMVJ9",
 };
 
 // Initialize Firebase

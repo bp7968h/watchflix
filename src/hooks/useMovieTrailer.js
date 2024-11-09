@@ -1,26 +1,29 @@
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import { addTrailerVideo } from "../utils/moviesSlice"
-import { API_OPTIONS } from "../utils/constants"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { addTrailerVideo } from "../utils/moviesSlice";
+import { API_OPTIONS } from "../utils/constants";
 
 const useMovieTrailer = (movieId) => {
-    const dispatch = useDispatch()
-    const trailerMovies = useSelector(store => store.movies.trailerVideo)
+  const dispatch = useDispatch();
+  const trailerMovies = useSelector((store) => store.movies.trailerVideo);
 
-    const getMovieVideos = async () => {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`, API_OPTIONS)
-        const data = await response.json()
+  const getMovieVideos = async () => {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
+      API_OPTIONS,
+    );
+    const data = await response.json();
 
-        const filterData = data.results.filter(video => video.type === 'Trailer')
-        const trailer = filterData.length ? filterData[0] : data.results[0]
+    const filterData = data.results.filter((video) => video.type === "Trailer");
+    const trailer = filterData.length ? filterData[0] : data.results[0];
 
-        dispatch(addTrailerVideo(trailer))
-    }
+    dispatch(addTrailerVideo(trailer));
+  };
 
-    useEffect(() => {
-        !trailerMovies && getMovieVideos()
-        // eslint-disable-next-line
-    }, [trailerMovies])
-}
+  useEffect(() => {
+    !trailerMovies && getMovieVideos();
+    // eslint-disable-next-line
+  }, [trailerMovies]);
+};
 
-export default useMovieTrailer
+export default useMovieTrailer;

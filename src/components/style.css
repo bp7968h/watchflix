@@ -1,11 +1,11 @@
 /* styles.css */
 .scrollable-element::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .scrollable-element {
-    scrollbar-width: none;
-    /* Firefox */
-    /* overflow: auto; */
-    /* Important for enabling scrolling */
+  scrollbar-width: none;
+  /* Firefox */
+  /* overflow: auto; */
+  /* Important for enabling scrolling */
 }
